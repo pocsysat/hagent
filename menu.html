@@ -143,6 +143,38 @@ header.nav{position:sticky;top:0;z-index:60;padding:16px 0;background:rgba(253,2
 .fab{position:fixed;right:22px;bottom:22px;z-index:80;background:var(--orange);color:#fff;border:none;border-radius:50px;padding:16px 24px;font-weight:900;font-size:.92rem;cursor:pointer;box-shadow:0 16px 40px -12px var(--orange);display:none;align-items:center;gap:10px;font-family:var(--sans)}
 .fab .badge{background:#fff;color:var(--orange-2);min-width:22px;height:22px;border-radius:12px;display:inline-grid;place-items:center;font-size:.72rem}
 
+/* 落單表單 */
+.order-pane{position:absolute;inset:0;background:var(--paper);z-index:5;display:flex;flex-direction:column}
+.op-head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line)}
+.op-head h3{font-size:1.2rem}
+.op-head .x{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink-2);line-height:1}
+.op-body{flex:1;overflow:auto;padding:18px 24px}
+.op-items{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:18px;background:var(--cream)}
+.op-items .oi{display:flex;justify-content:space-between;font-size:.84rem;padding:4px 0;color:var(--ink-2)}
+.op-items .oi b{color:var(--ink)}
+.op-items .oi .p{font-variant-numeric:tabular-nums}
+#orderForm label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.04em;color:var(--ink-2);margin-bottom:14px}
+#orderForm input,#orderForm textarea{display:block;width:100%;margin-top:6px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);font-family:var(--sans);font-size:.92rem;color:var(--ink)}
+#orderForm input:focus,#orderForm textarea:focus{outline:none;border-color:var(--orange)}
+#orderForm .seg{display:flex;gap:8px;margin-top:8px}
+#orderForm .seg button{flex:1;padding:10px;border:1.5px solid var(--line);background:var(--paper);border-radius:10px;font-family:var(--sans);font-weight:700;font-size:.85rem;cursor:pointer;color:var(--ink-2);transition:.2s}
+#orderForm .seg button.on{background:var(--orange);border-color:var(--orange);color:#fff}
+.tt-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.op-err{color:#c0392b;font-size:.82rem;font-weight:500;margin:6px 0 10px}
+.op-note{font-size:.72rem;color:var(--ink-2);margin-top:12px;line-height:1.6}
+.op-note b{color:var(--orange-2)}
+.order-done{position:absolute;inset:0;background:var(--paper);z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 30px}
+.od-glyph{width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;font-size:2rem;display:grid;place-items:center;margin:0 auto 18px}
+.order-done h3{font-size:1.4rem;margin-bottom:6px}
+.od-no{font-size:.85rem;color:var(--ink-2);margin-bottom:14px}
+.od-no b{color:var(--orange);font-family:var(--serif);letter-spacing:.05em}
+.od-list{width:100%;max-width:280px;text-align:left;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:0 auto 12px;background:var(--cream)}
+.od-list .li{display:flex;justify-content:space-between;font-size:.84rem;padding:3px 0;color:var(--ink-2)}
+.od-list .li b{color:var(--ink)}
+.od-sum{font-size:.9rem;margin-bottom:8px}
+.od-sum span{font-family:var(--serif);font-weight:900}
+.od-mail{font-size:.74rem;color:var(--ink-2);max-width:280px;margin:0 auto 20px;line-height:1.6}
+[hidden]{display:none}
 /* toast */
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--char);color:#fff;padding:12px 22px;border-radius:40px;font-size:.85rem;font-weight:500;z-index:120;opacity:0;pointer-events:none;transition:.3s}
 .toast.show{opacity:1;transform:translateX(-50%)}
@@ -184,6 +216,7 @@ footer{background:var(--char);color:#b9b0a0;padding:44px 0 28px}
     </a>
     <div class="nav-links">
       <a href="index.html">首頁</a>
+      <a href="book.html">訂枱</a>
       <span class="status" id="status"></span>
       <button class="cart-btn" id="cartBtn">
         購物車
@@ -239,9 +272,50 @@ footer{background:var(--char);color:#b9b0a0;padding:44px 0 28px}
       <span class="n">小計（<span id="totalQty">0</span> 件）</span>
       <span class="v" id="totalV">待定</span>
     </div>
-    <p class="note"><b>※ 價格待補</b>：源資料未含各菜式定價，加購後可提交，我們會先於官網／電話回覆報價。實際下單功能（付款、外賣取餐時間）將於後續版開放。</p>
-    <button class="checkout" id="checkout">提交訂單（先報價）</button>
+    <button class="checkout" id="checkout">前往落單</button>
     <button class="clear" id="clearCart">清空購物車</button>
+  </div>
+
+  <!-- 落單表單（於抽屜內展開） -->
+  <div class="order-pane" id="orderPane" hidden>
+    <div class="op-head">
+      <h3>填寫訂單資料</h3>
+      <button class="x" id="backToCart" aria-label="返回購物車">&larr;</button>
+    </div>
+    <div class="op-body">
+      <div class="op-items" id="opItems"></div>
+      <form id="orderForm" novalidate>
+        <label>姓名 <input id="ofName" required autocomplete="name" placeholder="你的姓名"></label>
+        <label>聯絡電話 <input id="ofPhone" required type="tel" autocomplete="tel" pattern="^[0-9+\-\s()]{7,15}$" placeholder="例如 +852 1234 5678"></label>
+        <label>取餐方式
+          <div class="seg" id="ofMethod">
+            <button type="button" data-m="dine" class="on">堂食</button>
+            <button type="button" data-m="take">外賣自取</button>
+          </div>
+        </label>
+        <label>希望時間
+          <div class="tt-row">
+            <input id="ofDate" type="date">
+            <input id="ofTime" type="time">
+          </div>
+        </label>
+        <label>備註（選填） <textarea id="ofNote" rows="2" placeholder="忌口、加辣、外賣備註…"></textarea></label>
+        <p class="op-err" id="opErr" hidden></p>
+        <button type="submit" class="checkout">確認下單</button>
+        <p class="op-note">確認後我們會於 30 分鐘內以電話回覆報價與準備狀況。<b>後端未接通前，訂單僅存於本機（demo 模式）。</b></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- 成功畫面 -->
+  <div class="order-done" id="orderDone" hidden>
+    <div class="od-glyph">✓</div>
+    <h3>訂單已建立</h3>
+    <p class="od-no">訂單編號 <b id="odNo"></b></p>
+    <div class="od-list" id="odList"></div>
+    <p class="od-sum">小計：<span id="odSub">待定（報價模式）</span></p>
+    <p class="od-mail">我們將致電 <b id="odPhone"></b> 確認報價與取餐安排。詳細資料可電郵至 info@eatandgo.com.hk。</p>
+    <button class="checkout" id="odDone">完成</button>
   </div>
 </aside>
 
@@ -398,11 +472,84 @@ document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
 document.getElementById("overlay").addEventListener("click", closeDrawer);
 addEventListener("keydown", e=>{ if(e.key==="Escape") closeDrawer(); });
 document.getElementById("clearCart").addEventListener("click", ()=>{ state.cart={}; save(); renderMenu(); renderCart(); toast("購物車已清空"); });
+/* ============ 落單流程 ============ */
+const pane = document.getElementById("orderPane");
+const done = document.getElementById("orderDone");
+let orderMethod = "dine";
+
 document.getElementById("checkout").addEventListener("click", ()=>{
-  const total = Object.values(state.cart).reduce((s,n)=>s+n,0);
-  const summary = Object.entries(state.cart).map(([id,q])=>{const i=MENU.flatMap(c=>c.items).find(x=>x.id===id);return `${i.name} ×${q}`;}).join("\n");
-  alert("感謝加購！目前為「報價模式」：\n\n你的清單："+summary+"\n\n將透過電話（+852 2345 6789）或電郵（info@eatandgo.com.hk）報價確認。正式付款流程會於下一版開放。");
-  state.cart={}; save(); renderMenu(); renderCart(); closeDrawer();
+  if(!Object.keys(state.cart).length) return;
+  renderOrderItems();
+  // 預設：今天 + 下一小時；時間限制在 08:00–21:00
+  const now = new Date();
+  const d = now.toISOString().slice(0,10);
+  document.getElementById("ofDate").value = d;
+  document.getElementById("ofDate").min = d;
+  const nh = Math.min(21, now.getHours()+1);
+  document.getElementById("ofTime").value = String(nh).padStart(2,"0")+":00";
+  document.getElementById("ofTime").min = "08:00";
+  document.getElementById("ofTime").max = "21:00";
+  document.getElementById("opErr").hidden = true;
+  pane.hidden = false;
+  done.hidden = true;
+  document.querySelector(".drawer-foot").style.display = "none";
+});
+function renderOrderItems(){
+  const box = document.getElementById("opItems");
+  box.innerHTML = Object.entries(state.cart).map(([id,q])=>{
+    const i = MENU.flatMap(c=>c.items).find(x=>x.id===id);
+    if(!i) return "";
+    return `<div class="oi"><b>${i.name} ×${q}</b><span class="p">${i.price==null?"HK$ 待補":"HK$ "+i.price}</span></div>`;
+  }).join("");
+}
+document.getElementById("backToCart").addEventListener("click", ()=>{
+  pane.hidden = true;
+  document.querySelector(".drawer-foot").style.display = "";
+});
+document.querySelectorAll("#ofMethod button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#ofMethod button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); orderMethod = b.dataset.m;
+}));
+document.getElementById("orderForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const name = document.getElementById("ofName").value.trim();
+  const phone = document.getElementById("ofPhone").value.trim();
+  const date = document.getElementById("ofDate").value;
+  const time = document.getElementById("ofTime").value;
+  const note = document.getElementById("ofNote").value.trim();
+  const err = document.getElementById("opErr");
+  const fail = m => { err.textContent = m; err.hidden = false; };
+  if(!name) return fail("請填寫姓名。");
+  if(!/^[0-9+\-\s()]{7,15}$/.test(phone)) return fail("請填寫有效聯絡電話（7–15 位數字，可含 + 號）。");
+  if(!date || !time) return fail("請選擇希望日期與時間。");
+  if(time < "08:00" || time > "21:00") return fail("營業時間為 08:00–21:00。");
+  // 建立訂單（demo：僅存本機）
+  const no = "EAG-"+Date.now().toString(36).toUpperCase();
+  const order = {
+    no, date: new Date().toISOString(),
+    name, phone, method: orderMethod==="dine"?"堂食":"外賣自取",
+    wishDate: date, wishTime: time, note,
+    items: Object.entries(state.cart).map(([id,q])=>{
+      const i = MENU.flatMap(c=>c.items).find(x=>x.id===id);
+      return {name:i.name, qty:q, price:i.price};
+    }),
+    totalQty: Object.values(state.cart).reduce((s,n)=>s+n,0)
+  };
+  const orders = JSON.parse(localStorage.getItem("eag_orders_v1")||"[]");
+  orders.push(order); localStorage.setItem("eag_orders_v1", JSON.stringify(orders));
+  state.cart = {}; save(); renderMenu(); renderCart();
+  // 成功畫面
+  document.getElementById("odNo").textContent = no;
+  document.getElementById("odList").innerHTML = order.items.map(i=>`<div class="li"><span>${i.name} ×${i.qty}</span><b>${i.price==null?"HK$ 待補":"HK$ "+i.price}</b></div>`).join("");
+  document.getElementById("odSub").textContent = "待定（報價模式，含 "+order.totalQty+" 件）";
+  document.getElementById("odPhone").textContent = phone;
+  pane.hidden = true; done.hidden = false;
+  document.querySelector(".drawer-foot").style.display = "none";
+});
+document.getElementById("odDone").addEventListener("click", ()=>{
+  done.hidden = true;
+  document.querySelector(".drawer-foot").style.display = "";
+  closeDrawer();
 });
 function toast(msg){
   const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");

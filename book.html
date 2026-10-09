@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eat-and-Go 日式餐廬｜訂枱</title>
+<meta name="description" content="Eat-and-Go 日式餐廬 訂枱——選擇日期、時間與人數，預約中環德輔道中的座位。">
+<link rel="icon" href="assets/logo_web.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7f4ee;--paper:#fdfcf8;--ink:#242424;--ink-2:#5e5c56;--char:#1c1b18;--line:#e6e1d6;
+  --orange:#e8722a;--orange-2:#c65a17;--orange-soft:#fbeadb;--green:#2f8f4e;
+  --maxw:860px;--serif:"Noto Serif TC",Georgia,serif;--sans:"Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --shadow:0 26px 64px -34px rgba(40,28,12,.55);--r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.22}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--orange)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem;padding:11px 20px;border-radius:40px;cursor:pointer;transition:.25s;border:1.5px solid transparent;font-family:var(--sans)}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange-2);transform:translateY(-2px);box-shadow:0 12px 22px -12px var(--orange)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--char);color:#fff;border-color:var(--char)}
+
+/* Header */
+header.nav{position:sticky;top:0;z-index:60;padding:16px 0;background:rgba(253,252,248,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:42px;height:42px;border-radius:50%;object-fit:cover}
+.brand .mark{font-weight:900;font-size:1.1rem;line-height:1;color:var(--char)}
+.brand .mark i{font-style:normal;color:var(--orange)}
+.brand .sub{font-size:.58rem;letter-spacing:.32em;color:var(--ink-2);text-transform:uppercase;margin-top:3px}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--ink-2)}
+.nav-links a:hover{color:var(--char)}
+.status{font-size:.74rem;font-weight:700;padding:6px 12px;border-radius:30px;display:inline-flex;align-items:center;gap:6px}
+.status .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.status.open{background:#e7f4ec;color:var(--green)}
+.status.closed{background:var(--orange-soft);color:var(--orange-2)}
+
+/* Hero */
+.hero{background:var(--char);color:var(--cream);padding:56px 0 44px;text-align:center}
+.hero .eyebrow{color:var(--orange)}
+.hero h1{font-size:clamp(1.9rem,4.4vw,3rem);margin:14px 0 10px;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{color:#c4bbaa;max-width:520px;margin:0 auto;font-weight:300}
+
+/* 步驟提示 */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:34px auto 0;max-width:560px}
+.steps .s{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 12px;text-align:left}
+.steps .s b{display:block;font-family:var(--serif);color:var(--orange);font-size:.95rem;margin-bottom:4px}
+.steps .s span{font-size:.72rem;color:#b9b0a0;line-height:1.5;display:block}
+
+/* 主體 */
+main{padding:48px 0 80px}
+.grid{display:grid;grid-template-columns:1fr 300px;gap:34px;align-items:start}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px 28px}
+.card h2{font-size:1.35rem;margin-bottom:6px;display:flex;align-items:center;gap:12px}
+.card h2 .g{font-family:var(--serif);color:var(--orange);font-size:1.6rem;font-weight:900}
+.card .hint{font-size:.84rem;color:var(--ink-2);margin-bottom:22px}
+fieldset{border:none;margin-bottom:24px}
+legend{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--ink-2);margin-bottom:12px;padding:0}
+legend .num{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--orange);color:#fff;font-size:.72rem;font-family:var(--serif);font-weight:900;margin-right:8px}
+
+/* 日期格 */
+.day-row{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day-btn{display:grid;place-items:center;gap:2px;padding:10px 0;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);cursor:pointer;transition:.2s;font-family:var(--sans)}
+.day-btn .w{font-size:.66rem;color:var(--ink-2);letter-spacing:.05em}
+.day-btn .d{font-weight:900;font-size:1.05rem}
+.day-btn:hover{border-color:var(--orange)}
+.day-btn.on{background:var(--orange);border-color:var(--orange);color:#fff}
+.day-btn.on .w{color:rgba(255,255,255,.85)}
+
+/* 時段格 */
+.slot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.slot{padding:10px 0;text-align:center;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);cursor:pointer;font-weight:700;font-size:.85rem;transition:.2s;font-family:var(--sans);font-variant-numeric:tabular-nums}
+.slot:hover{border-color:var(--orange);color:var(--orange)}
+.slot.on{background:var(--orange);border-color:var(--orange);color:#fff}
+.slot.full{opacity:.38;cursor:not-allowed;text-decoration:line-through}
+.legend-note{font-size:.72rem;color:var(--ink-2);margin-top:10px}
+
+/* 人數 */
+.ppl-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ppl{padding:14px 0;text-align:center;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);cursor:pointer;font-weight:900;font-size:.95rem;transition:.2s;font-family:var(--sans)}
+.ppl small{display:block;font-weight:400;font-size:.66rem;color:var(--ink-2)}
+.ppl:hover{border-color:var(--orange)}
+.ppl.on{background:var(--orange);border-color:var(--orange);color:#fff}
+.ppl.on small{color:rgba(255,255,255,.85)}
+.ppl-more{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px dashed var(--line);border-radius:10px;padding:12px;font-size:.82rem;color:var(--ink-2)}
+.ppl-more input{width:70px;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;text-align:center;font-family:var(--sans);font-weight:900}
+.ppl-more input:focus{outline:none;border-color:var(--orange)}
+
+/* 聯絡 */
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f-full{grid-column:1/-1}
+#bkForm label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.04em;color:var(--ink-2);margin-bottom:12px}
+#bkForm input,#bkForm textarea{display:block;width:100%;margin-top:6px;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);font-family:var(--sans);font-size:.92rem;color:var(--ink)}
+#bkForm input:focus,#bkForm textarea:focus{outline:none;border-color:var(--orange)}
+.err{color:#c0392b;font-size:.82rem;font-weight:500;margin:4px 0 10px}
+.submit{width:100%;background:var(--orange);color:#fff;font-weight:900;font-size:.95rem;padding:15px;border-radius:40px;border:none;cursor:pointer;transition:.25s;font-family:var(--sans);margin-top:6px}
+.submit:hover{background:var(--orange-2);transform:translateY(-1px)}
+.fineprint{font-size:.72rem;color:var(--ink-2);margin-top:14px;line-height:1.6}
+
+/* 側欄摘要 */
+.side{position:sticky;top:84px}
+.summ{background:var(--char);color:var(--cream);border-radius:var(--r);padding:26px 24px}
+.summ h3{font-size:1rem;color:#b9b0a0;font-family:var(--sans);font-weight:700;letter-spacing:.14em;margin-bottom:14px}
+.summ .sl{display:flex;justify-content:space-between;gap:10px;font-size:.86rem;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.12)}
+.summ .sl:last-of-type{border-bottom:none}
+.summ .sl span{color:#8b8170}
+.summ .sl b{font-weight:700;font-variant-numeric:tabular-nums}
+.summ .sl b.pending{color:#d9d3c8;font-weight:500}
+.contact-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:16px}
+.contact-card h4{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:12px;font-family:var(--sans)}
+.contact-card p{font-size:.88rem;color:var(--ink-2);margin-bottom:8px}
+.contact-card a{color:var(--orange);font-weight:500;font-size:.88rem}
+
+/* 成功畫面 */
+.done{display:none;text-align:center;padding:40px 0}
+.done .ok{width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;font-size:2rem;display:grid;place-items:center;margin:0 auto 18px}
+.done h2{font-size:1.5rem;margin-bottom:8px}
+.done .code{font-family:var(--serif);font-weight:900;color:var(--orange);font-size:1.4rem;letter-spacing:.08em;margin:10px 0}
+.done p{color:var(--ink-2);max-width:420px;margin:0 auto;font-size:.92rem}
+.done .dsum{border:1px solid var(--line);border-radius:10px;background:var(--cream);padding:14px 18px;max-width:320px;margin:18px auto 24px;text-align:left}
+.done .dsum .li{display:flex;justify-content:space-between;font-size:.86rem;padding:3px 0;color:var(--ink-2)}
+.done .dsum .li b{color:var(--ink)}
+[hidden]{display:none}
+
+/* footer */
+footer{background:var(--char);color:#b9b0a0;padding:40px 0 26px}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.82rem}
+.foot a{color:var(--orange);font-weight:500}
+
+@media(max-width:860px){
+  .grid{grid-template-columns:1fr}
+  .side{position:static}
+  .steps{max-width:100%}
+}
+@media(max-width:560px){
+  .day-row{grid-template-columns:repeat(4,1fr)}
+  .ppl-row{grid-template-columns:repeat(2,1fr)}
+  .f-row{grid-template-columns:1fr}
+  .f-full{grid-column:auto}
+  .nav-links a:not(.status){display:none}
+}
+@media print{
+  header.nav,.steps,.fineprint{display:none}
+  .hero{background:#fff;color:#000;padding:24px 0}
+  .hero .eyebrow,.hero h1 em{color:var(--orange-2)}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Eat-and-Go 首頁">
+      <img src="assets/logo_web.jpg" alt="Eat-and-Go logo">
+      <span>
+        <div class="mark">Eat-and-Go<i>.</i></div>
+        <div class="sub">訂枱</div>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">首頁</a>
+      <a href="menu.html">菜單・點餐</a>
+      <span class="status" id="status"></span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Book a Table 訂枱</span>
+    <h1>預約你的<em>座位</em></h1>
+    <p>全日 08:00 – 21:00，8 人及以下可直接網上預約；8 人以上請來電 +852 2345 6789 安排。</p>
+    <div class="steps">
+      <div class="s"><b>①</b><span>揀日期、時段與人數</span></div>
+      <div class="s"><b>②</b><span>填寫聯絡資料</span></div>
+      <div class="s"><b>③</b><span>30 分鐘內電話確認</span></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <!-- 成功畫面 -->
+    <div class="done" id="donePane">
+      <div class="ok">✓</div>
+      <h2>預約已送出</h2>
+      <p>預約編號</p>
+      <div class="code" id="bkNo"></div>
+      <div class="dsum" id="bkSummary"></div>
+      <p>我們會於 30 分鐘內致電 <b id="bkPhone"></b> 確認座位。如有任何變動，請隨時來電 +852 2345 6789 或電郵 info@eatandgo.com.hk。</p>
+      <p class="fineprint">〔後端未接通：此為 demo 模式，預約僅存於本機瀏覽器。〕</p>
+      <button class="submit" id="bkAgain" style="max-width:240px;margin:24px auto 0;display:block">再預約一枱</button>
+    </div>
+
+    <!-- 表單 -->
+    <div class="grid" id="formPane">
+      <div class="card">
+        <h2><span class="g">訂</span> 預約資料</h2>
+        <p class="hint">每步選擇會即時反映於右側摘要。</p>
+        <form id="bkForm" novalidate>
+          <fieldset>
+            <legend><span class="num">1</span>日期</legend>
+            <div class="day-row" id="dayRow"></div>
+          </fieldset>
+          <fieldset>
+            <legend><span class="num">2</span>時段</legend>
+            <div class="slot-grid" id="slotGrid"></div>
+            <p class="legend-note">「全」為該時段預約數達上限（每時段上限 4 枱、8 人以下）。</p>
+          </fieldset>
+          <fieldset>
+            <legend><span class="num">3</span>人數</legend>
+            <div class="ppl-row" id="pplRow"></div>
+            <div class="ppl-more">10 人以上：
+              <input id="pplMore" type="number" min="10" max="30" placeholder="人數" aria-label="10人以上人數">
+              <span>→ 請改來電 +852 2345 6789 安排</span>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span class="num">4</span>聯絡資料</legend>
+            <div class="f-row">
+              <label>姓名 *<input id="bkName" required autocomplete="name" placeholder="閣下姓名"></label>
+              <label>聯絡電話 *<input id="bkPhoneIn" required type="tel" autocomplete="tel" pattern="^[0-9+\-\s()]{7,15}$" placeholder="例如 +852 1234 5678"></label>
+              <label class="f-full">電郵（選填）<input id="bkEmail" type="email" autocomplete="email" placeholder="name@example.com"></label>
+              <label class="f-full">特別要求（選填）<textarea id="bkNote" rows="2" placeholder="生日、兒童座椅、靠窗…"></textarea></label>
+            </div>
+            <p class="err" id="bkErr" hidden></p>
+            <button type="submit" class="submit">確認預約</button>
+            <p class="fineprint">預約保留 15 分鐘；遲到超過 15 分鐘座位自動譲出。8 人以上或包廂請來電。</p>
+          </fieldset>
+        </form>
+      </div>
+
+      <aside class="side">
+        <div class="summ">
+          <h3>預約摘要</h3>
+          <div class="sl"><span>日期</span><b class="pending" id="sDate">未選</b></div>
+          <div class="sl"><span>時段</span><b class="pending" id="sTime">未選</b></div>
+          <div class="sl"><span>人數</span><b class="pending" id="sPpl">未選</b></div>
+          <div class="sl"><span>狀態</span><b id="sStatus" style="color:#8b8170">待填寫</b></div>
+        </div>
+        <div class="contact-card">
+          <h4>聯絡我們</h4>
+          <p>中環 徳輔道中 88 號 G01</p>
+          <p><a href="tel:+85223456789">+852 2345 6789</a></p>
+          <p><a href="mailto:info@eatandgo.com.hk">info@eatandgo.com.hk</a></p>
+          <p><a href="menu.html">或先到菜單點餐 →</a></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Eat-and-Go 日式餐廬</span>
+    <span><a href="index.html">首頁</a> · <a href="menu.html">菜單</a> · 中環 徳輔道中 88 號 G01 · +852 2345 6789</span>
+  </div>
+</footer>
+
+<script>
+/* ============ 資料 ============ */
+const DAYS = ["日","一","二","三","四","五","六"];
+const SLOTS = ["08:00","09:30","11:00","12:30","14:00","15:30","17:00","18:30","20:00"];
+const PPLS = [1,2,3,4];
+const CAP = 4; // 每時段預約枱數上限（demo）
+const sel = { day:null, slot:null, ppl:null };
+let pplMoreActive = false;
+
+/* demo 用的「已被佔」時段（本機隨機生成後固定，讓 UI 有滿座樣態） */
+let fullSlots = JSON.parse(localStorage.getItem("eag_bk_full_v1")||"null");
+if(!fullSlots){
+  const today = new Date();
+  const key = today.toISOString().slice(0,10);
+  fullSlots = { [key]: SLOTS.filter((s,i)=>i%3===2) }; // 固定 2 格作範例
+  localStorage.setItem("eag_bk_full_v1", JSON.stringify(fullSlots));
+}
+
+function isFull(dateStr, slot){ return (fullSlots[dateStr]||[]).includes(slot); }
+function dateStr(d){ return d.toISOString().slice(0,10); }
+
+/* ============ 日期 ============ */
+(function buildDays(){
+  const box = document.getElementById("dayRow");
+  const now = new Date();
+  let html = "";
+  for(let i=0;i<7;i++){
+    const d = new Date(now); d.setDate(now.getDate()+i);
+    const ds = dateStr(d);
+    html += `<button type="button" class="day-btn" data-ds="${ds}">
+      <span class="w">${i===0?"今天":i===1?"明天":"週"+DAYS[d.getDay()]}</span>
+      <span class="d">${d.getDate()}</span></button>`;
+  }
+  box.innerHTML = html;
+  sel.day = dateStr(now);
+  syncDayUI();
+  document.querySelectorAll(".day-btn").forEach(b=>b.addEventListener("click",()=>{
+    sel.day = b.dataset.ds; syncDayUI(); renderSlots(); syncSummary();
+  }));
+})();
+function syncDayUI(){
+  document.querySelectorAll(".day-btn").forEach(b=>b.classList.toggle("on", b.dataset.ds===sel.day));
+}
+
+/* ============ 時段 ============ */
+function renderSlots(){
+  const g = document.getElementById("slotGrid");
+  g.innerHTML = SLOTS.map(s=>{
+    const full = isFull(sel.day, s);
+    return `<button type="button" class="slot ${full?"full":""} ${sel.slot===s?"on":""}" data-s="${s}" ${full?"disabled":""}>${s}</button>`;
+  }).join("");
+  document.querySelectorAll(".slot:not(.full)").forEach(b=>b.addEventListener("click",()=>{
+    sel.slot = b.dataset.s; renderSlots(); syncSummary();
+  }));
+}
+
+/* ============ 人數 ============ */
+(function buildPpl(){
+  const box = document.getElementById("pplRow");
+  box.innerHTML = PPLS.map(n=>`<button type="button" class="ppl" data-n="${n}">${n}<small>人</small></button>`).join("");
+  document.querySelectorAll(".ppl").forEach(b=>b.addEventListener("click",()=>{
+    sel.ppl = +b.dataset.n; pplMoreActive = false;
+    document.getElementById("pplMore").value = "";
+    syncPplUI(); syncSummary();
+  }));
+  document.getElementById("pplMore").addEventListener("input", e=>{
+    pplMoreActive = e.target.value!=="";
+    syncPplUI(); syncSummary();
+  });
+})();
+function syncPplUI(){
+  document.querySelectorAll(".ppl").forEach(b=>b.classList.toggle("on", pplMoreActive===false && +b.dataset.n===sel.ppl));
+}
+
+/* ============ 摘要 ============ */
+function setCell(id, val, pending){
+  const el = document.getElementById(id);
+  el.textContent = val;
+  el.classList.toggle("pending", !!pending);
+}
+function syncSummary(){
+  const d = sel.day ? new Date(sel.day+"T00:00:00") : null;
+  setCell("sDate", d ? `${d.getMonth()+1}月${d.getDate()}日（週${DAYS[d.getDay()]}）` : "未選", !sel.day);
+  setCell("sTime", sel.slot ? sel.slot+"–"+nextHour(sel.slot) : "未選", !sel.slot);
+  const pplVal = pplMoreActive ? (document.getElementById("pplMore").value||"?")+" 人（需來電）" : (sel.ppl ? sel.ppl+" 人" : "未選");
+  setCell("sPpl", pplVal, !sel.ppl && !pplMoreActive);
+  const done = sel.day && sel.slot && sel.ppl;
+  setCell("sStatus", done ? "可確認" : "待填寫");
+  document.getElementById("sStatus").style.color = done ? "#7ed695" : "#8b8170";
+}
+function nextHour(t){ const [h,m]=t.split(":").map(Number); const nh=h+1; return String(nh).padStart(2,"0")+":"+String(m).padStart(2,"0"); }
+
+/* ============ 提交 ============ */
+document.getElementById("bkForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const err = document.getElementById("bkErr");
+  const fail = m => { err.textContent = m; err.hidden = false; };
+  if(!sel.day) return fail("請選擇日期。");
+  if(!sel.slot) return fail("請選擇時段。");
+  if(!sel.ppl && !pplMoreActive) return fail("請選擇人數。");
+  if(pplMoreActive){
+    const n = +document.getElementById("pplMore").value;
+    if(!n || n < 10) return fail("10 人以上請來電 +852 2345 6789 安排。");
+  }
+  const name = document.getElementById("bkName").value.trim();
+  const phone = document.getElementById("bkPhoneIn").value.trim();
+  const email = document.getElementById("bkEmail").value.trim();
+  if(!name) return fail("請填寫姓名。");
+  if(!/^[0-9+\-\s()]{7,15}$/.test(phone)) return fail("請填寫有效聯絡電話（7–15 位數字，可含 + 號）。");
+  if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail("電郵格式不正確（或留空）。");
+
+  // demo：存本機 + 佔一格
+  const no = "BK-"+Date.now().toString(36).toUpperCase();
+  const bookings = JSON.parse(localStorage.getItem("eag_bk_v1")||"[]");
+  bookings.push({ no, day: sel.day, slot: sel.slot, ppl: pplMoreActive ? +document.getElementById("pplMore").value : sel.ppl,
+    name, phone, email, note: document.getElementById("bkNote").value.trim() });
+  localStorage.setItem("eag_bk_v1", JSON.stringify(bookings));
+  if(!fullSlots[sel.day]) fullSlots[sel.day] = [];
+  if(!fullSlots[sel.day].includes(sel.slot)) fullSlots[sel.day].push(sel.slot);
+  localStorage.setItem("eag_bk_full_v1", JSON.stringify(fullSlots));
+
+  // 成功畫面
+  document.getElementById("formPane").hidden = true;
+  const dp = document.getElementById("donePane");
+  dp.style.display = "block";
+  document.getElementById("bkNo").textContent = no;
+  document.getElementById("bkPhone").textContent = phone;
+  document.getElementById("bkSummary").innerHTML =
+    `<div class="li"><span>${sel.day}</span><b>${sel.slot}–${nextHour(sel.slot)}</b></div>`+
+    `<div class="li"><span>人數</span><b>${sel.ppl} 人</b></div>`+
+    `<div class="li"><span>聯絡</span><b>${name}・${phone}</b></div>`;
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+document.getElementById("bkAgain").addEventListener("click", ()=>{
+  document.getElementById("donePane").style.display = "none";
+  document.getElementById("formPane").hidden = false;
+  document.getElementById("bkErr").hidden = true;
+  document.getElementById("bkForm").reset();
+  syncPplUI(); renderSlots(); syncSummary();
+});
+
+/* ============ 即時營業狀態（共用邏輯） ============ */
+function renderStatus(){
+  const now = new Date(), hm = now.getHours()*60+now.getMinutes();
+  const open = hm >= 8*60 && hm < 21*60;
+  const el = document.getElementById("status");
+  el.className = "status "+(open?"open":"closed");
+  el.innerHTML = open ? '<span class="dot"></span>營業中' : '<span class="dot"></span>今日 08:00 開門';
+}
+renderStatus(); setInterval(renderStatus, 60000);
+renderSlots(); syncSummary();
+</script>
+</body>
+</html>
