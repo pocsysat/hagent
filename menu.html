@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eat-and-Go 日式餐廬｜菜單・線上點餐</title>
+<meta name="description" content="Eat-and-Go 菜單——招牌和牛燒肉便當、慢煮豚骨叉燒拉麵、手工御飯糰、和風壽司。快速加購、隨時查看籃。">
+<link rel="icon" href="assets/logo_web.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7f4ee;--paper:#fdfcf8;--ink:#242424;--ink-2:#5e5c56;--char:#1c1b18;--line:#e6e1d6;
+  --orange:#e8722a;--orange-2:#c65a17;--orange-soft:#fbeadb;--green:#2f8f4e;
+  --maxw:1180px;--serif:"Noto Serif TC",Georgia,serif;--sans:"Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --shadow:0 26px 64px -34px rgba(40,28,12,.55);--r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:700;line-height:1.22}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--orange)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem;padding:11px 20px;border-radius:40px;cursor:pointer;transition:.25s;border:1.5px solid transparent;font-family:var(--sans)}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange-2);transform:translateY(-2px);box-shadow:0 12px 22px -12px var(--orange)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--char);color:#fff;border-color:var(--char)}
+
+/* Header */
+header.nav{position:sticky;top:0;z-index:60;padding:16px 0;background:rgba(253,252,248,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:42px;height:42px;border-radius:50%;object-fit:cover}
+.brand .mark{font-weight:900;font-size:1.1rem;line-height:1;color:var(--char)}
+.brand .mark i{font-style:normal;color:var(--orange)}
+.brand .sub{font-size:.58rem;letter-spacing:.32em;color:var(--ink-2);text-transform:uppercase;margin-top:3px}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--ink-2)}
+.nav-links a:hover{color:var(--char)}
+.cart-btn{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:11px 20px;border-radius:40px;font-weight:700;font-size:.85rem;cursor:pointer;border:none;transition:.25s}
+.cart-btn:hover{background:var(--orange-2);transform:translateY(-2px)}
+.cart-count{background:#fff;color:var(--orange-2);min-width:20px;height:20px;border-radius:12px;display:inline-grid;place-items:center;font-size:.72rem;font-weight:900;padding:0 5px}
+.status{font-size:.74rem;font-weight:700;padding:6px 12px;border-radius:30px;display:inline-flex;align-items:center;gap:6px}
+.status .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.status.open{background:#e7f4ec;color:var(--green)}
+.status.closed{background:var(--orange-soft);color:var(--orange-2)}
+
+/* Hero */
+.hero{background:var(--char);color:var(--cream);padding:64px 0 48px}
+.hero .eyebrow{color:var(--orange)}
+.hero h1{font-size:clamp(2rem,4.4vw,3.2rem);margin:14px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{color:#c4bbaa;max-width:560px;font-weight:300}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero-meta span{border:1px solid rgba(255,255,255,.22);padding:6px 14px;border-radius:30px;font-size:.76rem;color:#e8e2d7}
+
+/* 快速過濾 */
+.filter-bar{position:sticky;top:64px;z-index:50;background:rgba(247,244,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 0}
+.filter-in{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:var(--paper);color:var(--ink-2);font-weight:700;font-size:.82rem;padding:9px 18px;border-radius:30px;cursor:pointer;transition:.25s;font-family:var(--sans)}
+.chip:hover{border-color:var(--orange);color:var(--orange)}
+.chip.active{background:var(--orange);border-color:var(--orange);color:#fff}
+.search{flex:1;min-width:200px;position:relative}
+.search input{width:100%;padding:10px 16px 10px 40px;border:1.5px solid var(--line);border-radius:30px;background:var(--paper);font-family:var(--sans);font-size:.88rem;color:var(--ink)}
+.search input:focus{outline:none;border-color:var(--orange)}
+.search::before{content:"⌕";position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--ink-2);font-size:1rem}
+
+/* 菜單 */
+.menu{padding:48px 0 80px}
+.sec-head{margin:44px 0 22px;display:flex;align-items:baseline;gap:14px}
+.sec-head:first-child{margin-top:0}
+.sec-head h2{font-size:1.6rem}
+.sec-head .line{flex:1;height:1px;background:var(--line)}
+.sec-head .count{font-size:.78rem;color:var(--ink-2);font-weight:700;letter-spacing:.06em}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:1fr 200px;transition:.3s}
+.item:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+.item .txt{padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+.item .tags{display:flex;gap:6px;flex-wrap:wrap}
+.item .tag{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--orange-soft);color:var(--orange-2)}
+.item .tag.new{background:var(--char);color:#fff}
+.item .tag.v{background:#e7f4ec;color:var(--green)}
+.item h3{font-size:1.22rem}
+.item h3 em{font-style:normal;font-size:.8rem;color:var(--ink-2);font-weight:400;margin-left:8px}
+.item p{font-size:.88rem;color:var(--ink-2)}
+.item .row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
+.price{font-family:var(--serif);font-weight:900;font-size:1.3rem;color:var(--orange)}
+.price.pending{color:var(--ink-2);font-size:.82rem;font-family:var(--sans);font-weight:700;letter-spacing:.06em}
+.price.pending::before{content:"價格 ";opacity:.6}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-size:1rem;font-weight:700;color:var(--ink);display:grid;place-items:center;transition:.2s}
+.qty button:hover{border-color:var(--orange);color:var(--orange)}
+.qty button.plus{background:var(--orange);border-color:var(--orange);color:#fff}
+.qty button.plus:hover{background:var(--orange-2)}
+.qty .n{min-width:24px;text-align:center;font-weight:900;font-variant-numeric:tabular-nums}
+.item .fig{position:relative;overflow:hidden;background:var(--orange-soft)}
+.item .fig img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.item:hover .fig img{transform:scale(1.06)}
+.item .fig .ph{width:100%;height:100%;display:grid;place-items:center;background:var(--orange-soft)}
+.item .fig .ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(232,114,42,.08) 0 3px,transparent 3px 16px)}
+.item .fig .ph .glyph{position:relative;font-family:var(--serif);font-size:4rem;font-weight:900;color:var(--orange);opacity:.4}
+.item .fig .ph .note{position:absolute;bottom:10px;left:12px;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-2);background:rgba(255,255,255,.75);padding:3px 8px;border-radius:4px}
+.empty{display:none;text-align:center;padding:60px 0;color:var(--ink-2)}
+.empty .glyph{font-family:var(--serif);font-size:3rem;color:var(--orange);opacity:.4}
+
+/* Cart drawer */
+.overlay{position:fixed;inset:0;background:rgba(20,18,15,.55);z-index:90;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);background:var(--paper);z-index:100;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(0,0,0,.2)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid var(--line)}
+.drawer-head h2{font-size:1.3rem}
+.drawer-head .x{background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--ink-2);line-height:1}
+.drawer-body{flex:1;overflow:auto;padding:12px 24px}
+.cart-item{display:grid;grid-template-columns:56px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:center}
+.cart-item .thumb{width:56px;height:56px;border-radius:10px;object-fit:cover;background:var(--orange-soft)}
+.cart-item .thumb.blank{display:grid;place-items:center;font-family:var(--serif);font-weight:900;color:var(--orange);opacity:.6;font-size:1.6rem}
+.cart-item .name{font-weight:700;font-size:.92rem;line-height:1.3}
+.cart-item .sub{font-size:.72rem;color:var(--ink-2)}
+.cart-item .ctl{display:flex;align-items:center;gap:6px}
+.cart-item .ctl button{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-size:.9rem;font-weight:700;display:grid;place-items:center}
+.cart-item .ctl button:hover{border-color:var(--orange);color:var(--orange)}
+.cart-item .n{min-width:20px;text-align:center;font-weight:900}
+.cart-empty{text-align:center;padding:60px 0;color:var(--ink-2)}
+.cart-empty .g{font-family:var(--serif);font-size:3rem;color:var(--orange);opacity:.4;margin-bottom:12px}
+.drawer-foot{border-top:1px solid var(--line);padding:18px 24px 24px}
+.subtotal{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.subtotal .n{font-size:.9rem;color:var(--ink-2)}
+.subtotal .v{font-family:var(--serif);font-weight:900;font-size:1.5rem;color:var(--ink)}
+.subtotal .v.pending{font-family:var(--sans);font-size:.78rem;font-weight:700;color:var(--ink-2);letter-spacing:.05em}
+.note{font-size:.74rem;color:var(--ink-2);margin-bottom:14px;line-height:1.5}
+.note b{color:var(--orange)}
+.checkout{width:100%;background:var(--orange);color:#fff;font-weight:900;font-size:.95rem;padding:15px;border-radius:40px;border:none;cursor:pointer;transition:.25s;font-family:var(--sans)}
+.checkout:hover{background:var(--orange-2);transform:translateY(-1px)}
+.checkout:disabled{background:var(--line);color:var(--ink-2);cursor:not-allowed;transform:none}
+.clear{width:100%;margin-top:10px;background:none;border:none;color:var(--ink-2);font-size:.8rem;cursor:pointer;text-decoration:underline;font-family:var(--sans)}
+
+/* 固定購物車 CTA（mobile） */
+.fab{position:fixed;right:22px;bottom:22px;z-index:80;background:var(--orange);color:#fff;border:none;border-radius:50px;padding:16px 24px;font-weight:900;font-size:.92rem;cursor:pointer;box-shadow:0 16px 40px -12px var(--orange);display:none;align-items:center;gap:10px;font-family:var(--sans)}
+.fab .badge{background:#fff;color:var(--orange-2);min-width:22px;height:22px;border-radius:12px;display:inline-grid;place-items:center;font-size:.72rem}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--char);color:#fff;padding:12px 22px;border-radius:40px;font-size:.85rem;font-weight:500;z-index:120;opacity:0;pointer-events:none;transition:.3s}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* footer */
+footer{background:var(--char);color:#b9b0a0;padding:44px 0 28px}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:.82rem}
+.foot a{color:var(--orange);font-weight:500}
+
+@media(max-width:900px){
+  .menu-grid{grid-template-columns:1fr}
+  .item{grid-template-columns:1fr 160px}
+  .nav-links a:not(.status){display:none}
+}
+@media(max-width:640px){
+  .item{grid-template-columns:1fr}
+  .item .fig{order:-1;aspect-ratio:16/10}
+  .fab{display:inline-flex}
+  .cart-btn{display:none}
+  .filter-bar{top:58px}
+}
+@media print{
+  header.nav,.filter-bar,.fab,.drawer,.overlay,.toast,.item .row{display:none}
+  .item{grid-template-columns:1fr;border:1px solid #ccc;break-inside:avoid}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Eat-and-Go 首頁">
+      <img src="assets/logo_web.jpg" alt="Eat-and-Go logo">
+      <span>
+        <div class="mark">Eat-and-Go<i>.</i></div>
+        <div class="sub">日式餐廬・菜單</div>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">首頁</a>
+      <span class="status" id="status"></span>
+      <button class="cart-btn" id="cartBtn">
+        購物車
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Menu 菜單</span>
+    <h1>選擇你的<em>今日和食</em></h1>
+    <p>點一下「＋」加進購物車，隨時打開籃看看。立食吧台 5 分鐘交上手，外賣盒裝保持湯麵溫度。<a href="index.html" style="color:var(--orange);font-weight:700">← 返回首頁</a></p>
+    <div class="hero-meta">
+      <span>全日 08:00 – 21:00</span>
+      <span>中環 徳輔道中 88 號 G01</span>
+      <span>立食 / 座位 / 外賣</span>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <div class="wrap filter-in">
+    <button class="chip active" data-cat="all">全部</button>
+    <button class="chip" data-cat="sushi">壽司</button>
+    <button class="chip" data-cat="bento">便當</button>
+    <button class="chip" data-cat="ramen">拉麵</button>
+    <button class="chip" data-cat="light">軽食</button>
+    <button class="chip" data-cat="side">配搭</button>
+    <div class="search"><input id="q" type="search" placeholder="搜尋菜名…" aria-label="搜尋菜名"></div>
+  </div>
+</div>
+
+<main class="menu">
+  <div class="wrap" id="sections"></div>
+  <div class="wrap empty" id="empty">
+    <div class="glyph">食</div>
+    <p>沒有匹配的菜式，試試其他關鍵字。</p>
+  </div>
+</main>
+
+<!-- Cart drawer -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="購物車" role="dialog">
+  <div class="drawer-head">
+    <h2>你的訂單</h2>
+    <button class="x" id="closeDrawer" aria-label="關閉">&times;</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot">
+    <div class="subtotal">
+      <span class="n">小計（<span id="totalQty">0</span> 件）</span>
+      <span class="v" id="totalV">待定</span>
+    </div>
+    <p class="note"><b>※ 價格待補</b>：源資料未含各菜式定價，加購後可提交，我們會先於官網／電話回覆報價。實際下單功能（付款、外賣取餐時間）將於後續版開放。</p>
+    <button class="checkout" id="checkout">提交訂單（先報價）</button>
+    <button class="clear" id="clearCart">清空購物車</button>
+  </div>
+</aside>
+
+<button class="fab" id="fab">
+  購物車 <span class="badge" id="fabBadge">0</span>
+</button>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Eat-and-Go 日式餐廬</span>
+    <span><a href="index.html">首頁</a> · 中環 徳輔道中 88 號 G01 · +852 2345 6789</span>
+  </div>
+</footer>
+
+<script>
+/* ============ 資料區：菜式 ============
+   price: null = 待補（源資料未提供各菜定價）
+   img: null = 用字形占位。
+   補價格 / 照片時只需改這兩欄。
+*/
+const MENU = [
+  { cat:"sushi",  label:"Sushi 壽司", items:[
+    {id:"s1", cat:"sushi", name:"特選和風壽司組合", en:"Premier Sushi Platter", desc:"旬之壽司（鮪、鯖、鰻、蝦）配特製炸蝦天婦羅卷，佐自家芥末・香醋，握感緊實、海鮮清新。", img:"assets/sushi-platter_web.jpg", price:null, tags:["招牌"]},
+    {id:"s2", cat:"sushi", name:"特製炸蝦天婦羅卷", en:"Special Tempura Prawn Maki", desc:"酥脆炸蝦包入醋飯，海苔與芝麻收尾，口感層層分明。", img:"assets/sushi-platter_web.jpg", price:null, tags:["新"]},
+  ]},
+  { cat:"bento",  label:"Bento 便當", items:[
+    {id:"b1", cat:"bento", name:"特選和牛燒肉便當", en:"Wagyu Yakiniku Bento", desc:"優質日本和牛切片，獨家秘製醬油慢火炙焼，配香氣撲鼻的越光米與溏心蛋，肉香濃郁。", img:null, price:null, tags:["招牌"]},
+    {id:"b2", cat:"bento", name:"日光揚物御飯糰三點", en:"Nikko Handmade Onigiri Trio", desc:"炸蝦天婦羅、明太子三文魚、照焼雞肉，即點即做，包裹香脆海苔，便攜首選。", img:"assets/signature-spread_web.jpg", price:null, tags:["新"]},
+  ]},
+  { cat:"ramen",  label:"Ramen 拉麵", items:[
+    {id:"r1", cat:"ramen", name:"慢煮豚骨叉燒拉麵", en:"Slow-Cooked Tonkotsu Ramen", desc:"特製耐熱防淋雙層碗，豚骨湯底與慢煮 12 小時叉焼分開盛載，到手時麵條彈牙、湯頭保持溫度。", img:null, price:null, tags:["招牌","外賣盒"]},
+  ]},
+  { cat:"light",  label:"軽食 & 配搭", items:[
+    {id:"l1", cat:"light", name:"和風沙律", en:"Wafu Salad", desc:"新鮮蔬菜、小番茄、紫蘇，佐日式米酢沙律醬，清爽解膩。", img:"assets/signature-spread_web.jpg", price:null, tags:[]},
+    {id:"l2", cat:"light", name:"溏心蛋（半熟蛋）", en:"Ajitama", desc:"慢燉溏心蛋，醬汁浸漬，可単点配搭便当、拉麵。", img:"assets/signature-spread_web.jpg", price:null, tags:[]},
+  ]},
+];
+
+const CAT_ORDER = ["sushi","bento","ramen","light","side"];
+const CAT_NAME = {sushi:"Sushi 壽司",bento:"Bento 便當",ramen:"Ramen 拉麵",light:"軽食 & 配搭",side:"Side 配搭"};
+const GLYPH = {sushi:"寿",bento:"便",ramen:"麺",light:"軽",side:"配"};
+const state = {
+  filter:"all", q:"",
+  cart: JSON.parse(localStorage.getItem("eag_cart_v1")||"{}")   // id -> qty
+};
+
+function money(n){ return n==null ? "待定" : "HK$"+n.toLocaleString(); }
+
+function renderMenu(){
+  const box = document.getElementById("sections");
+  const q = state.q.trim().toLowerCase();
+  const visible = CAT_ORDER.filter(c=>{
+    if(state.filter!=="all" && state.filter!==c) return false;
+    const cat = MENU.find(m=>m.cat===c);
+    if(!cat) return false;
+    if(!q) return true;
+    return cat.items.some(i=>i.name.toLowerCase().includes(q)||i.en.toLowerCase().includes(q)||i.desc.toLowerCase().includes(q));
+  });
+  box.innerHTML = visible.map(catKey=>{
+    const cat = MENU.find(m=>m.cat===catKey);
+    const items = cat.items.filter(i=>!q || i.name.toLowerCase().includes(q)||i.en.toLowerCase().includes(q)||i.desc.toLowerCase().includes(q));
+    const rows = items.map(i=>{
+      const qty = state.cart[i.id]||0;
+      const fig = i.img
+        ? `<div class="fig"><img src="${i.img}" alt="${i.name}" loading="lazy"></div>`
+        : `<div class="fig"><div class="ph"><span class="glyph">${GLYPH[catKey]}</span><span class="note">相片〔待補〕</span></div></div>`;
+      const tags = (i.tags||[]).map(t=>`<span class="tag ${t==='新'?'new':''}">${t}</span>`).join("");
+      return `<article class="item" data-id="${i.id}">
+        <div class="txt">
+          <div class="tags">${tags||''}</div>
+          <h3>${i.name}<em>${i.en}</em></h3>
+          <p>${i.desc}</p>
+          <div class="row">
+            <div class="price ${i.price==null?'pending':''}">${i.price==null?"待補":money(i.price)}</div>
+            <div class="qty">
+              <button class="minus" data-act="dec" data-id="${i.id}" ${qty===0?'disabled style="opacity:.35"':''} aria-label="減少">−</button>
+              <span class="n">${qty}</span>
+              <button class="plus" data-act="inc" data-id="${i.id}" aria-label="加入">＋</button>
+            </div>
+          </div>
+        </div>
+        ${fig}
+      </article>`;
+    }).join("");
+    return `<div class="sec-head"><h2>${cat.label}</h2><span class="line"></span><span class="count">${items.length} 項</span></div>
+            <div class="menu-grid">${rows}</div>`;
+  }).join("");
+  document.getElementById("empty").style.display = visible.length ? "none" : "block";
+}
+
+function renderCart(){
+  const ids = Object.keys(state.cart);
+  const total = ids.reduce((s,id)=>s+state.cart[id],0);
+  document.getElementById("cartCount").textContent = total;
+  document.getElementById("fabBadge").textContent = total;
+  document.getElementById("totalQty").textContent = total;
+  const body = document.getElementById("cartBody");
+  if(!total){
+    body.innerHTML = `<div class="cart-empty"><div class="g">籃</div><p>購物車空空。<br>回上面加幾道和食吧。</p></div>`;
+    document.getElementById("totalV").textContent = "待定";
+    document.getElementById("totalV").className = "v pending";
+    document.getElementById("checkout").disabled = true;
+    return;
+  }
+  document.getElementById("checkout").disabled = false;
+  const anyPrice = ids.some(id=>{const i=MENU.flatMap(c=>c.items).find(x=>x.id===id);return i&&i.price!=null;});
+  document.getElementById("totalV").textContent = anyPrice ? money(ids.reduce((s,id)=>{const i=MENU.flatMap(c=>c.items).find(x=>x.id===id);return s+(i?i.price||0:0)*state.cart[id];},0)) : "待定";
+  document.getElementById("totalV").className = anyPrice ? "v" : "v pending";
+  body.innerHTML = ids.map(id=>{
+    const i = MENU.flatMap(c=>c.items).find(x=>x.id===id);
+    if(!i) return "";
+    const q = state.cart[id];
+    const thumb = i.img ? `<img class="thumb" src="${i.img}" alt="${i.name}">` : `<div class="thumb blank">${GLYPH[i.cat]||"食"}</div>`;
+    return `<div class="cart-item">
+      ${thumb}
+      <div><div class="name">${i.name}</div><div class="sub">${i.price==null?"價格待補":money(i.price)}／份</div></div>
+      <div class="ctl">
+        <button data-act="dec" data-id="${id}" aria-label="減少">−</button>
+        <span class="n">${q}</span>
+        <button data-act="inc" data-id="${id}" aria-label="加入">＋</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+function save(){ localStorage.setItem("eag_cart_v1", JSON.stringify(state.cart)); }
+
+/* events */
+document.getElementById("sections").addEventListener("click", e=>{
+  const b = e.target.closest("button[data-act]"); if(!b) return;
+  const id = b.dataset.id, act = b.dataset.act;
+  if(act==="inc"){ state.cart[id]=(state.cart[id]||0)+1; toast("已加入購物車"); }
+  else { state.cart[id]=(state.cart[id]||0)-1; if(state.cart[id]<=0) delete state.cart[id]; }
+  save(); renderMenu(); renderCart();
+});
+document.getElementById("cartBody").addEventListener("click", e=>{
+  const b = e.target.closest("button[data-act]"); if(!b) return;
+  const id = b.dataset.id;
+  if(b.dataset.act==="inc") state.cart[id]++;
+  else { state.cart[id]--; if(state.cart[id]<=0) delete state.cart[id]; }
+  save(); renderMenu(); renderCart();
+});
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
+  c.classList.add("active"); state.filter=c.dataset.cat; renderMenu();
+}));
+document.getElementById("q").addEventListener("input", e=>{ state.q=e.target.value; renderMenu(); });
+document.getElementById("cartBtn").addEventListener("click", openDrawer);
+document.getElementById("fab").addEventListener("click", openDrawer);
+function openDrawer(){ document.getElementById("drawer").classList.add("open"); document.getElementById("overlay").classList.add("open"); document.body.style.overflow="hidden"; }
+function closeDrawer(){ document.getElementById("drawer").classList.remove("open"); document.getElementById("overlay").classList.remove("open"); document.body.style.overflow=""; }
+document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
+document.getElementById("overlay").addEventListener("click", closeDrawer);
+addEventListener("keydown", e=>{ if(e.key==="Escape") closeDrawer(); });
+document.getElementById("clearCart").addEventListener("click", ()=>{ state.cart={}; save(); renderMenu(); renderCart(); toast("購物車已清空"); });
+document.getElementById("checkout").addEventListener("click", ()=>{
+  const total = Object.values(state.cart).reduce((s,n)=>s+n,0);
+  const summary = Object.entries(state.cart).map(([id,q])=>{const i=MENU.flatMap(c=>c.items).find(x=>x.id===id);return `${i.name} ×${q}`;}).join("\n");
+  alert("感謝加購！目前為「報價模式」：\n\n你的清單："+summary+"\n\n將透過電話（+852 2345 6789）或電郵（info@eatandgo.com.hk）報價確認。正式付款流程會於下一版開放。");
+  state.cart={}; save(); renderMenu(); renderCart(); closeDrawer();
+});
+function toast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1600);
+}
+
+/* 即時營業狀態 */
+const HOURS=[["08:00","21:00"]];
+function toMin(t){const [h,m]=t.split(":").map(Number);return h*60+m;}
+function renderStatus(){
+  const now=new Date(), hm=now.getHours()*60+now.getMinutes();
+  const open = HOURS.some(s=>hm>=toMin(s[0])&&hm<toMin(s[1]));
+  const el=document.getElementById("status");
+  el.className="status "+(open?"open":"closed");
+  el.innerHTML = open
+    ? '<span class="dot"></span>營業中'
+    : '<span class="dot"></span>今日 08:00 開門';
+}
+renderStatus(); setInterval(renderStatus, 60000);
+
+renderMenu(); renderCart();
+</script>
+</body>
+</html>
