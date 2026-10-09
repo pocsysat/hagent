@@ -3,403 +3,445 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Todo List</title>
+<title>Eat-and-Go 日式餐廬｜现代快捷・道地和食</title>
+<meta name="description" content="Eat-and-Go 日式餐廬——立食・外賣の日式便當與軽食專門店。Fast, Fresh & Authentic：日本直送越光米、毎日新鮮食材，中環德輔道中 88 號。">
+<link rel="icon" href="assets/logo_web.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f4f5f7;
-    --surface: #ffffff;
-    --text: #1a1d23;
-    --text-muted: #6b7280;
-    --accent: #4f46e5;
-    --accent-hover: #4338ca;
-    --accent-soft: #eef2ff;
-    --danger: #ef4444;
-    --danger-soft: #fef2f2;
-    --success: #10b981;
-    --border: #e5e7eb;
-    --radius: 12px;
-    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 48px 16px;
-  }
-  .app {
-    width: 100%;
-    max-width: 560px;
-    background: var(--surface);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+:root{
+  --cream:#f7f4ee;--paper:#fdfcf8;--ink:#242424;--ink-2:#5e5c56;--char:#1c1b18;--line:#e6e1d6;
+  --orange:#e8722a;--orange-2:#c65a17;--orange-soft:#fbeadb;--green:#2f8f4e;
+  --maxw:1180px;--serif:"Noto Serif TC",Georgia,serif;--sans:"Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --shadow:0 26px 64px -34px rgba(40,28,12,.55);--r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.78;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:700;line-height:1.22}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--orange)}
+.section{padding:clamp(72px,9vw,120px) 0}
+.section-head{max-width:680px;margin-bottom:46px}
+.section-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem);margin:.7rem 0 .9rem}
+.section-head p{color:var(--ink-2)}
 
-  /* ---------- header ---------- */
-  header {
-    padding: 24px 24px 16px;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
-  header h1 span { color: var(--accent); }
-  .count-pill {
-    font-size: .8rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    background: var(--bg);
-    padding: 4px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
+header.nav{position:sticky;top:0;z-index:60;padding:18px 0;transition:.35s;background:transparent}
+header.nav.scrolled{background:rgba(253,252,248,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:10px 0}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:46px;height:46px;border-radius:50%;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.brand .txt .mark{font-weight:900;font-size:1.15rem;letter-spacing:-.02em;line-height:1;color:var(--char);font-family:var(--sans)}
+.brand .txt .mark i{font-style:normal;color:var(--orange)}
+.brand .txt .sub{font-size:.62rem;letter-spacing:.34em;color:var(--ink-2);text-transform:uppercase;margin-top:3px;font-family:var(--sans)}
+nav.menu{display:flex;gap:28px}
+nav.menu a{font-size:.9rem;font-weight:500;color:var(--ink-2);position:relative;padding:4px 0}
+nav.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--orange);transition:width .3s}
+nav.menu a:hover{color:var(--char)}
+nav.menu a:hover::after{width:100%}
+.header-cta{display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem;letter-spacing:.02em;padding:11px 20px;border-radius:40px;cursor:pointer;transition:.25s;border:1.5px solid transparent;font-family:var(--sans)}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange-2);transform:translateY(-2px);box-shadow:0 12px 22px -12px var(--orange)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--char);color:#fff;border-color:var(--char)}
+.status-pill{display:none;font-size:.72rem;font-weight:700;letter-spacing:.05em;padding:6px 12px;border-radius:30px;align-items:center;gap:6px}
+.status-pill .dot{width:7px;height:7px;border-radius:50%}
+.status-pill.open{background:#e7f4ec;color:var(--green)}
+.status-pill.open .dot{background:var(--green)}
+.status-pill.closed{background:var(--orange-soft);color:var(--orange-2)}
+.status-pill.closed .dot{background:var(--orange)}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{display:block;width:24px;height:2.5px;background:var(--char);margin:5px 0;border-radius:2px;transition:.3s}
 
-  /* ---------- input row ---------- */
-  .input-row {
-    display: flex;
-    gap: 8px;
-    padding: 0 24px 16px;
-  }
-  .input-row input {
-    flex: 1;
-    font: inherit;
-    font-size: .95rem;
-    padding: 12px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    outline: none;
-    transition: border-color .15s, box-shadow .15s;
-  }
-  .input-row input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-soft);
-  }
-  .input-row button {
-    font: inherit;
-    font-size: .95rem;
-    font-weight: 600;
-    color: #fff;
-    background: var(--accent);
-    border: none;
-    border-radius: 10px;
-    padding: 0 20px;
-    cursor: pointer;
-    transition: background .15s, transform .1s;
-  }
-  .input-row button:hover { background: var(--accent-hover); }
-  .input-row button:active { transform: scale(.97); }
+.hero{position:relative;overflow:hidden;background:var(--char);color:var(--cream);min-height:92vh;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.48}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,18,15,.92) 0%,rgba(20,18,15,.66) 45%,rgba(20,18,15,.25) 100%)}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.hero .eyebrow{color:var(--orange)}
+.hero h1{font-size:clamp(2.5rem,6.4vw,4.5rem);font-weight:900;margin:18px 0 20px;line-height:1.08}
+.hero h1 .en{display:block;font-family:var(--serif);font-weight:700;color:var(--orange);font-size:.5em;letter-spacing:.04em;margin-top:10px}
+.hero .lead{max-width:540px;font-weight:300;color:#d9d3c8;font-size:1.02rem}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.tag{border:1px solid rgba(255,255,255,.24);padding:7px 15px;border-radius:30px;font-size:.78rem;font-weight:500;letter-spacing:.04em;color:#e8e2d7;backdrop-filter:blur(2px)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.hero .btn-primary{background:var(--orange)}
+.hero .btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
+.hero .btn-ghost:hover{background:#fff;color:var(--char);border-color:#fff}
 
-  /* ---------- filters ---------- */
-  .filters {
-    display: flex;
-    gap: 6px;
-    padding: 0 24px 12px;
-  }
-  .filters button {
-    font: inherit;
-    font-size: .8rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    background: transparent;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all .15s;
-  }
-  .filters button:hover { background: var(--bg); }
-  .filters button.active {
-    color: var(--accent);
-    background: var(--accent-soft);
-    font-weight: 600;
-  }
+.about{background:var(--paper)}
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,5vw,72px);align-items:center}
+.logo-fig{display:grid;place-items:center;background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:34px}
+.logo-fig img{width:100%;border-radius:10px;box-shadow:var(--shadow)}
+.logo-fig .cap{margin-top:14px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+.about-grid .txt h2{font-size:clamp(1.8rem,3.2vw,2.5rem);margin:.7rem 0 1.1rem}
+.about-grid .txt p{color:var(--ink-2);margin-bottom:1.1rem}
+.core{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.core span{background:var(--orange-soft);color:var(--orange-2);font-weight:700;font-size:.8rem;padding:8px 15px;border-radius:30px;letter-spacing:.05em}
 
-  /* ---------- list ---------- */
-  ul.todo-list {
-    list-style: none;
-    padding: 0 12px;
-    flex: 1;
-    min-height: 80px;
-  }
-  .todo-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 10px;
-    transition: background .15s;
-    animation: slide-in .18s ease;
-  }
-  .todo-item:hover { background: var(--bg); }
-  @keyframes slide-in {
-    from { opacity: 0; transform: translateY(-4px); }
-    to   { opacity: 1; transform: none; }
-  }
+.philo{background:var(--cream)}
+.philo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:6px}
+.philo-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;position:relative;overflow:hidden;transition:.35s}
+.philo-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:transparent}
+.philo-card .no{font-family:var(--serif);font-weight:900;font-size:3rem;color:var(--orange);opacity:.16;position:absolute;right:18px;top:2px}
+.philo-card h3{font-size:1.32rem;margin-bottom:10px}
+.philo-card h3 em{font-style:normal;color:var(--orange)}
+.philo-card p{color:var(--ink-2);font-size:.93rem}
 
-  /* custom checkbox */
-  .check {
-    flex-shrink: 0;
-    width: 22px; height: 22px;
-    border: 2px solid var(--border);
-    border-radius: 7px;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: all .15s;
-  }
-  .check svg {
-    width: 13px; height: 13px;
-    stroke: #fff; stroke-width: 3;
-    fill: none;
-    opacity: 0;
-    transform: scale(.5);
-    transition: all .15s;
-  }
-  .todo-item.done .check {
-    background: var(--success);
-    border-color: var(--success);
-  }
-  .todo-item.done .check svg { opacity: 1; transform: scale(1); }
+.dishes{background:var(--paper)}
+.dish-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:34px}
+.dish-card{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.35s}
+.dish-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
+.dish-card figure{position:relative;overflow:hidden;aspect-ratio:16/10}
+.dish-card figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.dish-card:hover figure img{transform:scale(1.05)}
+.dish-card .body{padding:26px 28px 30px}
+.dish-card .cat{font-size:.68rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--orange)}
+.dish-card h3{font-size:1.42rem;margin:.55rem 0 .7rem}
+.dish-card h3 small{font-family:var(--sans);font-weight:400;font-size:.85rem;color:var(--ink-2);margin-left:6px}
+.dish-card p{color:var(--ink-2);font-size:.92rem;margin-bottom:18px}
+.view-menu{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem;color:var(--orange);transition:gap .25s}
+.view-menu:hover{gap:14px}
+.dish-card .ph{position:relative;width:100%;height:100%;background:var(--orange-soft);display:grid;place-items:center;aspect-ratio:16/10}
+.dish-card .ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(232,114,42,.08) 0 3px,transparent 3px 16px)}
+.dish-card .ph .glyph{position:relative;font-family:var(--serif);font-size:4.4rem;font-weight:900;color:var(--orange);opacity:.4}
+.dish-card .ph .note{position:absolute;bottom:10px;left:14px;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-2);background:rgba(255,255,255,.72);padding:4px 9px;border-radius:4px}
 
-  .todo-label {
-    flex: 1;
-    font-size: .95rem;
-    line-height: 1.4;
-    word-break: break-word;
-    transition: color .15s;
-  }
-  .todo-item.done .todo-label {
-    color: var(--text-muted);
-    text-decoration: line-through;
-  }
+.gallery{background:var(--char);color:var(--cream)}
+.gallery .section-head h2{color:var(--cream)}
+.gallery .section-head .eyebrow{color:var(--orange)}
+.gallery .section-head p{color:#a89e8b}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gal-grid .cell{position:relative;overflow:hidden;border-radius:10px}
+.gal-grid .cell img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;transition:transform .6s}
+.gal-grid .cell:hover img{transform:scale(1.06)}
+.gal-grid .cell.wide{grid-column:span 2;aspect-ratio:auto}
+.gal-grid .cell.wide img{aspect-ratio:16/9}
+.gal-grid .cell .lab{position:absolute;left:0;right:0;bottom:0;padding:22px 16px 12px;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.gal .cap{margin-top:16px;font-size:.74rem;letter-spacing:.1em;color:#8b8170}
 
-  .del {
-    flex-shrink: 0;
-    width: 30px; height: 30px;
-    border: none;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    opacity: 0;
-    transition: all .15s;
-  }
-  .todo-item:hover .del, .del:focus-visible { opacity: 1; }
-  .del:hover { background: var(--danger-soft); color: var(--danger); }
+.visit{background:var(--cream)}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.vcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:38px 36px}
+.vcard h3{font-size:1.3rem;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.vcard h3 .g{font-family:var(--serif);color:var(--orange);font-size:1.7rem;font-weight:900}
+.live-flag{display:inline-flex;align-items:center;gap:7px;font-size:.74rem;font-weight:700;letter-spacing:.05em;padding:6px 13px;border-radius:30px;margin:8px 0 22px}
+.live-flag.open{background:#e7f4ec;color:var(--green)}
+.live-flag.closed{background:var(--orange-soft);color:var(--orange-2)}
+.live-flag .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.hours-list .row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line);font-size:.94rem}
+.hours-list .row:last-child{border-bottom:none}
+.hours-list .day{color:var(--ink-2)}
+.hours-list .time{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.hours-list .row.today{background:linear-gradient(90deg,var(--orange-soft),transparent);border-radius:8px}
+.hours-list .row.today .day{color:var(--orange);font-weight:700}
+.open-all{margin-top:16px;font-size:.8rem;color:var(--ink-2);background:var(--cream);border-radius:8px;padding:11px 14px}
+.contact-list{list-style:none}
+.contact-list li{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line)}
+.contact-list li:last-child{border-bottom:none}
+.contact-list .k{min-width:66px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-weight:700;padding-top:3px}
+.contact-list .v{font-size:.96rem}
+.contact-list .v a{border-bottom:1px solid transparent;transition:.2s}
+.contact-list .v a:hover{color:var(--orange);border-color:var(--orange)}
 
-  /* empty state */
-  .empty {
-    text-align: center;
-    padding: 40px 24px;
-    color: var(--text-muted);
-  }
-  .empty .icon { font-size: 2rem; margin-bottom: 8px; }
-  .empty p { font-size: .9rem; }
+footer{background:var(--char);color:#b9b0a0;padding:60px 0 32px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.09)}
+.foot-brand .mark{font-family:var(--serif);font-size:1.9rem;font-weight:900;color:#f0e9dc}
+.foot-brand .mark i{font-style:normal;color:var(--orange)}
+.foot-brand p{margin-top:14px;max-width:320px;font-weight:300;font-size:.88rem}
+.foot-col h4{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:#8b8170;margin-bottom:18px;font-family:var(--sans);font-weight:700}
+.foot-col a,.foot-col p{display:block;color:#c4bbaa;font-size:.88rem;margin-bottom:10px;font-weight:300}
+.foot-col a:hover{color:var(--orange)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:24px;font-size:.76rem;color:#8b8170}
 
-  /* ---------- footer ---------- */
-  footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 24px;
-    border-top: 1px solid var(--border);
-    background: #fafafa;
-    font-size: .82rem;
-    color: var(--text-muted);
-  }
-  .clear-done {
-    font: inherit;
-    font-size: .82rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all .15s;
-  }
-  .clear-done:hover { color: var(--danger); background: var(--danger-soft); }
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+.delay-1{transition-delay:.08s}.delay-2{transition-delay:.16s}.delay-3{transition-delay:.24s}
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f1115;
-      --surface: #171a20;
-      --text: #e5e7eb;
-      --text-muted: #9ca3af;
-      --accent-soft: #1e2140;
-      --danger-soft: #2a1518;
-      --border: #2b2f38;
-      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.5);
-    }
-    footer { background: #14171c; }
-  }
+@media(max-width:900px){
+  .about-grid,.visit-grid{grid-template-columns:1fr}
+  .philo-grid{grid-template-columns:1fr}
+  .dish-grid{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand{grid-column:1/-1}
+}
+@media(max-width:760px){
+  nav.menu{position:fixed;inset:64px 0 auto 0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);transform:translateY(-140%);transition:transform .4s;box-shadow:var(--shadow);z-index:55}
+  nav.menu.open{transform:none}
+  nav.menu a{padding:16px 24px;border-top:1px solid var(--line)}
+  .burger{display:block}
+  .header-cta .btn{display:none}
+  .status-pill{display:inline-flex}
+}
+@media(max-width:520px){.gal-grid{grid-template-columns:1fr}.hero{min-height:80vh}}
+
+@media print{
+  header.nav,.hero-cta,.burger,.no-print{display:none}
+  .hero{background:#fff;color:#000;min-height:auto;padding:28px 0}
+  .hero-bg,.hero::after{display:none}
+  .section{padding:22px 0}
+  .dish-card,.philo-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+  body{background:#fff}
+}
 </style>
 </head>
 <body>
-<main class="app" aria-label="Todo list">
-  <header>
-    <h1>Todo<span> List</span></h1>
-    <div class="count-pill" id="countPill" aria-live="polite">0 tasks</div>
-  </header>
 
-  <form class="input-row" id="addForm">
-    <input type="text" id="todoInput" placeholder="加入新待辦事項…"
-           autocomplete="off" autofocus aria-label="新待辦事項">
-    <button type="submit">加入</button>
-  </form>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Eat-and-Go 首頁">
+      <img src="assets/logo_web.jpg" alt="Eat-and-Go 日式餐廬 logo">
+      <span class="txt">
+        <span class="mark">Eat-and-Go<i>.</i></span>
+        <span class="sub">日式餐廬</span>
+      </span>
+    </a>
+    <nav class="menu" id="menu" aria-label="主要導覽">
+      <a href="#about">關於我們</a>
+      <a href="#philosophy">料理理念</a>
+      <a href="#dishes">招牌菜式</a>
+      <a href="#visit">營業時間</a>
+      <a href="#visit">聯絡</a>
+    </nav>
+    <div class="header-cta">
+      <span class="status-pill" id="statusPill"></span>
+      <a class="btn btn-ghost" href="#dishes">View Menu</a>
+      <a class="btn btn-primary" href="#visit">訂枱 / 聯絡</a>
+      <button class="burger" id="burger" aria-label="開啟選單" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
 
-  <nav class="filters" role="tablist" aria-label="篩選">
-    <button type="button" data-filter="all" class="active">全部</button>
-    <button type="button" data-filter="active">未完成</button>
-    <button type="button" data-filter="done">已完成</button>
-  </nav>
+<section class="hero" id="top">
+  <img class="hero-bg" src="assets/interior_web.jpg" alt="Eat-and-Go 日式餐廬環境">
+  <div class="wrap">
+    <span class="eyebrow reveal">立食・外賣の 日式料理</span>
+    <h1 class="reveal delay-1">忙碌都市，<br>一口正宗の和食<span class="en">Fast ・ Fresh ・ Authentic</span></h1>
+    <p class="lead reveal delay-2">Eat-and-Go 重新定義日本「立食」與外賣便當文化——日本直送越光米、毎日新鮮到港食材，職人精神製作，讓你在最短時間享受熱騰騰、高 CP 値的道地和食。</p>
+    <div class="hero-tags reveal delay-3">
+      <span class="tag">日本直送 越光米</span>
+      <span class="tag">立食 吧台</span>
+      <span class="tag">外賣 便當</span>
+      <span class="tag">中環 德輔道中</span>
+    </div>
+    <div class="hero-cta reveal delay-3">
+      <a class="btn btn-primary" href="#dishes">View Menu <span>→</span></a>
+      <a class="btn btn-ghost" href="#visit">營業時間・地址</a>
+    </div>
+  </div>
+</section>
 
-  <ul class="todo-list" id="todoList" aria-label="待辦事項列表"></ul>
+<section class="section about" id="about">
+  <div class="wrap about-grid">
+    <div class="logo-fig reveal">
+      <img src="assets/logo_web.jpg" alt="Eat-and-Go 日式餐廬 商標">
+      <div class="cap">Eat-and-Go 日式餐廬</div>
+    </div>
+    <div class="txt reveal delay-1">
+      <span class="eyebrow">關於我們</span>
+      <h2>為節奏明快的大都會人，<br>而設的日式快餐體驗</h2>
+      <p>Eat-and-Go 是一間主打「現代快捷」與「道地風味」結合的日式便當與軽食專門店。我們将日本伝統的「立食（Tachigui）」與外賣便當文化重新定義，讓顧客即使在忙碌的日程中，亦能随時随地享用到熱騰騰、極具品質的日式料理。</p>
+      <div class="core">
+        <span>Fast 快捷</span><span>Fresh 新鮮</span><span>Authentic 正宗</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    <span id="remainInfo">剩餘 0 項</span>
-    <button type="button" class="clear-done" id="clearDone">清除已完成</button>
-  </footer>
-</main>
+<section class="section philo" id="philosophy">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">品牌與料理理念</span>
+      <h2>Fast, Fresh &amp; Authentic</h2>
+      <p>三個堅持，守住「快捷」之下的「正宗」。</p>
+    </div>
+    <div class="philo-grid">
+      <article class="philo-card reveal">
+        <span class="no">01</span>
+        <h3>日本直送の<em>高級米種</em></h3>
+        <p>堅持選用日本直送的高級米種（如新潟県産 越光米），毎日新鮮到港食材，絕不使用預製加工包。</p>
+      </article>
+      <article class="philo-card reveal delay-1">
+        <span class="no">02</span>
+        <h3>職人精神の<em>每一份餐點</em></h3>
+        <p>料理團隊以職人精神處理每一份餐點，簡化點餐及製作流程，確保品質與速度並重。</p>
+      </article>
+      <article class="philo-card reveal delay-2">
+        <span class="no">03</span>
+        <h3>高 CP 値の<em>均衡體驗</em></h3>
+        <p>讓顧客在最短時間内，獲得高 CP 値且營養均衡的道地和食體驗，適合匆忙の日常。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section dishes" id="dishes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">招牌菜式</span>
+      <h2>主打三式，每一道都值得排队</h2>
+      <p>點選「View Menu」前往完整菜單〔menu.html，線上點餐頁稍後建置〕。</p>
+    </div>
+    <div class="dish-grid">
+      <article class="dish-card reveal">
+        <figure><img src="assets/signature-spread_web.jpg" alt="日光揚物手工御飯糰・慢煮豚骨叉燒・溏心蛋・和風沙律"></figure>
+        <div class="body">
+          <span class="cat">Signature 主打</span>
+          <h3>招牌組合盤<small>御飯糰・叉燒・沙律</small></h3>
+          <p>日光揚物手工御飯糰（炸蝦天婦羅、明太子三文魚、照焼雞肉），配慢煮 12 小時豚骨叉燒、溏心蛋與和風沙律——一盤兼備便攜軽食與道地和食風味。</p>
+          <a class="view-menu" href="menu.html">View Menu <span>→</span></a>
+        </div>
+      </article>
+      <article class="dish-card reveal delay-1">
+        <figure><img src="assets/sushi-platter_web.jpg" alt="特選和風壽司組合"></figure>
+        <div class="body">
+          <span class="cat">Sushi 壽司</span>
+          <h3>特選和風壽司組合<small>鮪・鯖・鰻・蝦</small></h3>
+          <p>旬之壽司（鮪、鯖、鰻、蝦）與特製炸蝦天婦羅卷，搭配自家芥末・香醋，握感緊實、海鮮清新，適合即食亦適合外賣。</p>
+          <a class="view-menu" href="menu.html">View Menu <span>→</span></a>
+        </div>
+      </article>
+      <article class="dish-card reveal">
+        <div class="ph"><span class="glyph">肉</span><span class="note">菜式相片〔待補：特選和牛燒肉便當〕</span></div>
+        <div class="body">
+          <span class="cat">Wagyu 和牛</span>
+          <h3>特選和牛燒肉便當<small>秘製醬油・慢火炙焼</small></h3>
+          <p>選用優質日本和牛切片，以獨家秘製醬油慢火炙焼，搭配香氣撲鼻的越光米與溏心蛋，口感丰富、肉香濃郁。</p>
+          <a class="view-menu" href="menu.html">View Menu <span>→</span></a>
+        </div>
+      </article>
+      <article class="dish-card reveal delay-1">
+        <div class="ph"><span class="glyph">麺</span><span class="note">菜式相片〔待補：慢煮豚骨叉燒拉麵 外賣盒〕</span></div>
+        <div class="body">
+          <span class="cat">Ramen 拉麵</span>
+          <h3>慢煮豚骨叉燒拉麵<small>外賣盒裝・雙層防淋</small></h3>
+          <p>採用特製耐熱防淋雙層碗，将濃郁豚骨湯底與慢煮 12 小時の日式叉焼分開盛載，確保到手時麵條依然彈牙、湯頭保持最佳溫度。</p>
+          <a class="view-menu" href="menu.html">View Menu <span>→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">環境</span>
+      <h2>明亮開放，立食亦从容</h2>
+      <p>中環徳輔道中街铺，落地玻璃対着中環街景；立食吧台、座位區與明厨一字排開，看住廚師在你眼前製作。</p>
+    </div>
+    <div class="gal-grid reveal">
+      <div class="cell wide"><img src="assets/interior_customers_web.jpg" alt="店內：立食吧枱用餐的顧客與明廚師傅明火炙焼"><div class="lab">店內日常</div></div>
+      <div class="cell"><img src="assets/signature-spread_web.jpg" alt="桌面菜式：御飯糰・叉燒・沙律"><div class="lab">招牌菜式</div></div>
+      <div class="cell"><img src="assets/sushi-platter_web.jpg" alt="壽司拼盤"><div class="lab">和風壽司</div></div>
+      <div class="cell"><img src="assets/logo_web.jpg" alt="Eat-and-Go 商標"><div class="lab">Eat-and-Go</div></div>
+    </div>
+    <p class="cap no-print">〔待補：可再加「座位區特寫」「明厨製備」「外賣取餐區」等真實相片〕</p>
+  </div>
+</section>
+
+<section class="section visit" id="visit">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">營業時間與聯絡</span>
+      <h2>隨時来，熱騰騰の和食</h2>
+    </div>
+    <div class="visit-grid">
+      <div class="vcard reveal">
+        <h3><span class="g">時</span> 營業時間</h3>
+        <div class="live-flag" id="liveFlag"></div>
+        <div class="hours-list" id="hoursList"></div>
+        <p class="open-all">星期一至星期日 全日 08:00 – 21:00 連開不休息。〔節日營業時間如有調整，以現場為準。〕</p>
+      </div>
+      <div class="vcard reveal delay-1">
+        <h3><span class="g">址</span> 地址與聯絡</h3>
+        <ul class="contact-list">
+          <li><span class="k">地址</span><span class="v">香港中環 徳輔道中 88 號地下 G01 號舖</span></li>
+          <li><span class="k">電話</span><span class="v"><a href="tel:+85223456789">+852 2345 6789</a></span></li>
+          <li><span class="k">電郵</span><span class="v"><a href="mailto:info@eatandgo.com.hk">info@eatandgo.com.hk</a></span></li>
+          <li><span class="k">官網</span><span class="v"><a href="https://www.eatandgo.com.hk" target="_blank" rel="noopener">www.eatandgo.com.hk</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="mark">Eat-and-Go<i>.</i></div>
+        <p>現代快捷・道地和食。立食吧台、外賣便當與軽食，最快 5 分鐘交上手，让你隨時随処 taste 正宗日本味。</p>
+      </div>
+      <div class="foot-col">
+        <h4>導覽</h4>
+        <a href="#about">關於我們</a>
+        <a href="#philosophy">料理理念</a>
+        <a href="#dishes">招牌菜式</a>
+        <a href="menu.html">View Menu</a>
+      </div>
+      <div class="foot-col">
+        <h4>聯絡</h4>
+        <p>中環 徳輔道中 88 號 G01</p>
+        <a href="tel:+85223456789">+852 2345 6789</a>
+        <a href="mailto:info@eatandgo.com.hk">info@eatandgo.com.hk</a>
+        <a href="https://www.eatandgo.com.hk" target="_blank" rel="noopener">www.eatandgo.com.hk</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year">2026</span> Eat-and-Go 日式餐廬. All rights reserved.</span>
+      <span>〔待補：加入社交媒體連結 Instagram／Facebook／WhatsApp〕</span>
+    </div>
+  </div>
+</footer>
 
 <script>
-(() => {
-  "use strict";
-  const STORAGE_KEY = "todo-app-items";
-
-  /** @typedef {{id:string, text:string, done:boolean}} Todo */
-  /** @type {Todo[]} */
-  let todos = load();
-  let filter = "all";
-
-  const listEl   = document.getElementById("todoList");
-  const formEl   = document.getElementById("addForm");
-  const inputEl  = document.getElementById("todoInput");
-  const pillEl   = document.getElementById("countPill");
-  const remainEl = document.getElementById("remainInfo");
-  const clearEl  = document.getElementById("clearDone");
-  const filterBtns = document.querySelectorAll(".filters button");
-
-  // ---------- storage ----------
-  function load() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      const parsed = raw ? JSON.parse(raw) : [];
-      return Array.isArray(parsed)
-        ? parsed.filter(t => t && typeof t.text === "string" && "id" in t)
-        : [];
-    } catch { return []; }
+const HOURS = Array(7).fill(null).map(()=>[["08:00","21:00"]]);
+const DAY_NAMES=["週一","週二","週三","週四","週五","週六","週日"];
+function fmt(list){ return list.length ? list.map(s=>s[0]+"–"+s[1]).join("、") : "全日休息"; }
+function toMin(t){const [h,m]=t.split(":").map(Number);return h*60+m;}
+function isOpenNow(){
+  const now=new Date(), d=(now.getDay()+6)%7, hm=now.getHours()*60+now.getMinutes();
+  return HOURS[d].some(s=>hm>=toMin(s[0])&&hm<toMin(s[1]));
+}
+function nextOpen(){
+  const now=new Date(), d=(now.getDay()+6)%7, hm=now.getHours()*60+now.getMinutes();
+  const today=HOURS[d];
+  for(const s of today) if(hm<toMin(s[0])) return {label:"今天",time:s[0]};
+  for(let k=1;k<=7;k++){const nd=(d+k)%7; if(HOURS[nd].length) return {label:k===1?"明天":DAY_NAMES[nd],time:HOURS[nd][0][0]};}
+  return {label:"-",time:""};
+}
+function renderHours(){
+  const box=document.getElementById("hoursList");
+  const todayIdx=(new Date().getDay()+6)%7;
+  box.innerHTML=DAY_NAMES.map((n,i)=>`<div class="row ${i===todayIdx?'today':''}">
+    <span class="day">${n}${i===todayIdx?' <b>・今天</b>':''}</span>
+    <span class="time">${fmt(HOURS[i])}</span></div>`).join("");
+}
+function renderStatus(){
+  const open=isOpenNow(), pill=document.getElementById("statusPill"), flag=document.getElementById("liveFlag");
+  if(open){
+    pill.className="status-pill open"; pill.innerHTML='<span class="dot"></span>營業中';
+    flag.className="live-flag open"; flag.innerHTML='<span class="dot"></span>目前營業中・今日 08:00–21:00';
+  }else{
+    const nx=nextOpen();
+    pill.className="status-pill closed"; pill.innerHTML='<span class="dot"></span>'+nx.label+' '+nx.time+' 開門';
+    flag.className="live-flag closed"; flag.innerHTML='<span class="dot"></span>目前休息中・'+nx.label+' '+nx.time+' 重新開門';
   }
-  function persist() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-  }
-
-  // ---------- rendering ----------
-  function render() {
-    const visible = todos.filter(t =>
-      filter === "all" ? true : filter === "active" ? !t.done : t.done);
-
-    listEl.innerHTML = "";
-
-    if (visible.length === 0) {
-      const div = document.createElement("div");
-      div.className = "empty";
-      const msg = filter === "done" ? "還沒有已完成事項"
-                : filter === "active" ? "全部完成了，做得好！🎉"
-                : "清單是空的，加入第一件事開始吧";
-      div.innerHTML = `<div class="icon">${filter === "active" ? "🎉" : "📝"}</div><p>${msg}</p>`;
-      listEl.appendChild(div);
-    } else {
-      for (const t of visible) listEl.appendChild(itemNode(t));
-    }
-
-    const doneCount = todos.filter(t => t.done).length;
-    const remain = todos.length - doneCount;
-    pillEl.textContent = `${todos.length} task${todos.length === 1 ? "" : "s"}` +
-                         (doneCount ? ` · ${doneCount} 完成` : "");
-    remainEl.textContent = `剩餘 ${remain} 項`;
-    clearEl.style.visibility = doneCount ? "visible" : "hidden";
-  }
-
-  function itemNode(t) {
-    const li = document.createElement("li");
-    li.className = "todo-item" + (t.done ? " done" : "");
-    li.dataset.id = t.id;
-
-    const check = document.createElement("button");
-    check.className = "check";
-    check.setAttribute("role", "checkbox");
-    check.setAttribute("aria-checked", String(t.done));
-    check.setAttribute("aria-label", t.done ? "標記為未完成" : "標記為已完成");
-    check.innerHTML = '<svg viewBox="0 0 16 16"><path d="M2.5 8.5 L6 12 L13.5 4.5"/></svg>';
-    check.addEventListener("click", () => toggle(t.id));
-
-    const label = document.createElement("span");
-    label.className = "todo-label";
-    label.textContent = t.text;
-
-    const del = document.createElement("button");
-    del.className = "del";
-    del.setAttribute("aria-label", `刪除：${t.text}`);
-    del.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4 L12 12 M12 4 L4 12"/></svg>';
-    del.addEventListener("click", () => remove(t.id));
-
-    li.append(check, label, del);
-    return li;
-  }
-
-  // ---------- actions ----------
-  function add(text) {
-    todos.push({ id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
-                 text, done: false });
-    persist();
-    render();
-  }
-  function toggle(id) {
-    const t = todos.find(x => x.id === id);
-    if (t) { t.done = !t.done; persist(); render(); }
-  }
-  function remove(id) {
-    todos = todos.filter(x => x.id !== id);
-    persist();
-    render();
-  }
-  function clearDone() {
-    todos = todos.filter(t => !t.done);
-    persist();
-    render();
-  }
-
-  // ---------- events ----------
-  formEl.addEventListener("submit", e => {
-    e.preventDefault();
-    const text = inputEl.value.trim();
-    if (!text) return;
-    add(text);
-    inputEl.value = "";
-    inputEl.focus();
-  });
-
-  clearEl.addEventListener("click", clearDone);
-
-  filterBtns.forEach(btn => btn.addEventListener("click", () => {
-    filter = btn.dataset.filter;
-    filterBtns.forEach(b => b.classList.toggle("active", b === btn));
-    render();
-  }));
-
-  render(); // initial paint on load
-})();
+}
+const nav=document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>20),{passive:true});
+const burger=document.getElementById("burger"),menu=document.getElementById("menu");
+burger.addEventListener("click",()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o);});
+menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>menu.classList.remove("open")));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+document.getElementById("year").textContent=new Date().getFullYear();
+renderHours();renderStatus();setInterval(renderStatus,60000);
 </script>
 </body>
 </html>
