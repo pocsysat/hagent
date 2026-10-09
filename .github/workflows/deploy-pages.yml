@@ -1,0 +1,35 @@
+# 自動建置與部署：純靜態站（index.html 即根目錄）。
+# 部署來源設為 GitHub Actions（Settings → Pages → Source: "GitHub Actions"）。
+# 任何 push 到 main（或 PR 驗證）都會自動重新部署到 Pages。
+name: Build and deploy static site to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # 手動觸發
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload static site as Pages artifact
+        # 將整個倉庫根目錄（靜態站本身）當做部署產物，
+        # Pages（GHA source）會使用這個 artifact 作為網站根目錄。
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/deploy-pages@v4
+        with:
+          run_id: ${{ github.run_id }}
