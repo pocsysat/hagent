@@ -302,7 +302,7 @@ footer{background:var(--char);color:#b9b0a0;padding:44px 0 28px}
         <label>備註（選填） <textarea id="ofNote" rows="2" placeholder="忌口、加辣、外賣備註…"></textarea></label>
         <p class="op-err" id="opErr" hidden></p>
         <button type="submit" class="checkout">確認下單</button>
-        <p class="op-note">確認後我們會於 30 分鐘內以電話回覆報價與準備狀況。<b>後端未接通前，訂單僅存於本機（demo 模式）。</b></p>
+        <p class="op-note">確認後我們會於 30 分鐘內致電確認訂單與準備狀況。<b>後端未接通前，訂單僅存於本機（demo 模式）。</b></p>
       </form>
     </div>
   </div>
@@ -340,19 +340,19 @@ footer{background:var(--char);color:#b9b0a0;padding:44px 0 28px}
 */
 const MENU = [
   { cat:"sushi",  label:"Sushi 壽司", items:[
-    {id:"s1", cat:"sushi", name:"特選和風壽司組合", en:"Premier Sushi Platter", desc:"旬之壽司（鮪、鯖、鰻、蝦）配特製炸蝦天婦羅卷，佐自家芥末・香醋，握感緊實、海鮮清新。", img:"assets/sushi-platter_web.jpg", price:null, tags:["招牌"]},
-    {id:"s2", cat:"sushi", name:"特製炸蝦天婦羅卷", en:"Special Tempura Prawn Maki", desc:"酥脆炸蝦包入醋飯，海苔與芝麻收尾，口感層層分明。", img:"assets/sushi-platter_web.jpg", price:null, tags:["新"]},
+    {id:"s1", cat:"sushi", name:"特選和風壽司組合", en:"Premier Sushi Platter", desc:"旬之壽司（鮪、鯖、鰻、蝦）配特製炸蝦天婦羅卷，佐自家芥末・香醋，握感緊實、海鮮清新。", img:"assets/sushi-platter_web.jpg", price:138, tags:["招牌"]},
+    {id:"s2", cat:"sushi", name:"特製炸蝦天婦羅卷", en:"Special Tempura Prawn Maki", desc:"酥脆炸蝦包入醋飯，海苔與芝麻收尾，口感層層分明。", img:"assets/sushi-platter_web.jpg", price:42, tags:["新"]},
   ]},
   { cat:"bento",  label:"Bento 便當", items:[
-    {id:"b1", cat:"bento", name:"特選和牛燒肉便當", en:"Wagyu Yakiniku Bento", desc:"優質日本和牛切片，獨家秘製醬油慢火炙焼，配香氣撲鼻的越光米與溏心蛋，肉香濃郁。", img:"assets/wagyu-bento_web.jpg", price:null, tags:["招牌"]},
-    {id:"b2", cat:"bento", name:"日光揚物御飯糰三點", en:"Nikko Handmade Onigiri Trio", desc:"炸蝦天婦羅、明太子三文魚、照焼雞肉，即點即做，包裹香脆海苔，便攜首選。", img:"assets/signature-spread_web.jpg", price:null, tags:["新"]},
+    {id:"b1", cat:"bento", name:"特選和牛燒肉便當", en:"Wagyu Yakiniku Bento", desc:"優質日本和牛切片，獨家秘製醬油慢火炙焼，配香氣撲鼻的越光米與溏心蛋，肉香濃郁。", img:"assets/wagyu-bento_web.jpg", price:168, tags:["招牌"]},
+    {id:"b2", cat:"bento", name:"日光揚物御飯糰三點", en:"Nikko Handmade Onigiri Trio", desc:"炸蝦天婦羅、明太子三文魚、照焼雞肉，即點即做，包裹香脆海苔，便攜首選。", img:"assets/signature-spread_web.jpg", price:62, tags:["新"]},
   ]},
   { cat:"ramen",  label:"Ramen 拉麵", items:[
-    {id:"r1", cat:"ramen", name:"慢煮豚骨叉燒拉麵", en:"Slow-Cooked Tonkotsu Ramen", desc:"特製耐熱防淋雙層碗，豚骨湯底與慢煮 12 小時叉焼分開盛載，到手時麵條彈牙、湯頭保持溫度。", img:"assets/ramen-takeaway_web.jpg", price:null, tags:["招牌","外賣盒"]},
+    {id:"r1", cat:"ramen", name:"慢煮豚骨叉燒拉麵", en:"Slow-Cooked Tonkotsu Ramen", desc:"特製耐熱防淋雙層碗，豚骨湯底與慢煮 12 小時叉焼分開盛載，到手時麵條彈牙、湯頭保持溫度。", img:"assets/ramen-takeaway_web.jpg", price:78, tags:["招牌","外賣盒"]},
   ]},
   { cat:"light",  label:"軽食 & 配搭", items:[
-    {id:"l1", cat:"light", name:"和風沙律", en:"Wafu Salad", desc:"新鮮蔬菜、小番茄、紫蘇，佐日式米酢沙律醬，清爽解膩。", img:"assets/signature-spread_web.jpg", price:null, tags:[]},
-    {id:"l2", cat:"light", name:"溏心蛋（半熟蛋）", en:"Ajitama", desc:"慢燉溏心蛋，醬汁浸漬，可単点配搭便当、拉麵。", img:"assets/signature-spread_web.jpg", price:null, tags:[]},
+    {id:"l1", cat:"light", name:"和風沙律", en:"Wafu Salad", desc:"新鮮蔬菜、小番茄、紫蘇，佐日式米酢沙律醬，清爽解膩。", img:"assets/signature-spread_web.jpg", price:38, tags:[]},
+    {id:"l2", cat:"light", name:"溏心蛋（半熟蛋）", en:"Ajitama", desc:"慢燉溏心蛋，醬汁浸漬，可単点配搭便当、拉麵。", img:"assets/signature-spread_web.jpg", price:20, tags:[]},
   ]},
 ];
 
@@ -541,7 +541,7 @@ document.getElementById("orderForm").addEventListener("submit", e=>{
   // 成功畫面
   document.getElementById("odNo").textContent = no;
   document.getElementById("odList").innerHTML = order.items.map(i=>`<div class="li"><span>${i.name} ×${i.qty}</span><b>${i.price==null?"HK$ 待補":"HK$ "+i.price}</b></div>`).join("");
-  document.getElementById("odSub").textContent = "待定（報價模式，含 "+order.totalQty+" 件）";
+  document.getElementById("odSub").textContent = "HK$ "+order.items.reduce((s,i)=>s+(i.price||0)*i.qty,0);
   document.getElementById("odPhone").textContent = phone;
   pane.hidden = true; done.hidden = false;
   document.querySelector(".drawer-foot").style.display = "none";
