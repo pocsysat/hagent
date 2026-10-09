@@ -317,7 +317,7 @@ function renderMenu(){
           <h3>${i.name}<em>${i.en}</em></h3>
           <p>${i.desc}</p>
           <div class="row">
-            <div class="price ${i.price==null?'pending':''}">${i.price==null?"待補":money(i.price)}</div>
+            <div class="price ${i.price==null?'pending':''}">${i.price==null?"<span class=\"cur\">HK$</span> 待補":"<span class=\"cur\">HK$</span> "+i.price.toLocaleString()}</div>
             <div class="qty">
               <button class="minus" data-act="dec" data-id="${i.id}" ${qty===0?'disabled style="opacity:.35"':''} aria-label="減少">−</button>
               <span class="n">${qty}</span>
