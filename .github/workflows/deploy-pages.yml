@@ -20,6 +20,9 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    # GitHub Pages 部署要求 deployment job 綁定 "pages" 環境（首跑會自動建立）
+    environment:
+      name: pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
